@@ -1,0 +1,76 @@
+<h4 class="text-center">Registre-se e mostre seu gatinho pro mundo</h4>
+<form
+  class="form mt-4"
+  [formGroup]="novoUsuarioForm"
+  (submit)="cadastrarUsuario()"
+>
+  <div class="form-group">
+    <input
+      type="email"
+      placeholder="Informe seu email"
+      class="form-control"
+      formControlName="email"
+    />
+    <app-mensagem
+      mensagemErro="Email obrigatório"
+      *ngIf="
+        novoUsuarioForm.get('email')?.errors?.['required'] &&
+        novoUsuarioForm.get('email')?.touched
+      "
+    ></app-mensagem>
+    <app-mensagem
+      mensagemErro="Formato do email incorreto"
+      *ngIf="novoUsuarioForm.get('email')?.errors?.['email'] &&
+      novoUsuarioForm.get('email')?.touched"
+    ></app-mensagem>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      placeholder="Informe seu nome"
+      class="form-control"
+      formControlName="fullName"
+    />
+    <app-mensagem
+      mensagemErro="Nome incorreto / incompleto"
+      *ngIf="novoUsuarioForm.get('fullName')?.errors &&
+      novoUsuarioForm.get('fullName')?.touched"
+    ></app-mensagem>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="text"
+      placeholder="Usuário"
+      class="form-control"
+      formControlName="userName"
+    />
+    <app-mensagem
+      mensagemErro="Usuario deve conter apenas letras minusculas"
+      *ngIf="novoUsuarioForm.get('userName')?.errors?.['minusculo'] &&
+      novoUsuarioForm.get('userName')?.touched"
+    ></app-mensagem>
+    <app-mensagem
+      mensagemErro="Usuario com este username já existe"
+      *ngIf="novoUsuarioForm.get('userName')?.errors?.['usuarioExistente']"
+    ></app-mensagem>
+  </div>
+
+  <div class="form-group">
+    <input
+      type="password"
+      placeholder="Informe sua senha"
+      class="form-control"
+      formControlName="password"
+    />
+    <app-mensagem
+      mensagemErro="Usuario e senha não podem ser iguais"
+      *ngIf="novoUsuarioForm.errors?.['senhaIgualUsuario']"
+    ></app-mensagem>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
+</form>
+
+<p>Já possui uma conta? <a [routerLink]="['']">Faça o Login!</a></p>
